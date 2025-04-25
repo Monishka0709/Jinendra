@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Header from '../components/Header'
 import Hero from '../components/Hero'
 import '../App.css'
@@ -7,29 +7,22 @@ import IPhoneHome from '../components/IPhoneHome'
 import PrimeDeals from '../components/PrimeDeals'
 import NewArrivals from '../components/NewArrivals'
 import SmartWatch from '../components/SmartWatch'
-import { AuthProvider } from '../context/AuthContext'
-import { CartProvider } from '../context/CartContext'
-import { ArrowDropUp, ArrowUpward } from '@mui/icons-material'
-import CartDisplay from '../components/CartDisplay'
 import Footer from '../components/Footer'
+import { useCart } from '../context/CartContext'
 
 const Home = () => {
+
   return (
     <div style={{height:"100vh", overflowX: 'hidden'}}>
       
-      <AuthProvider>
-        <CartProvider>
+     
         <Header/>
       <Headernav/>
       <Hero/>
       <IPhoneHome/>
-      
       <PrimeDeals/>
-      {/* <NewArrivals/> */}
-      {/* <SmartWatch/> */}
-      </CartProvider>
-      </AuthProvider>
-      
+      <NewArrivals/>
+      <SmartWatch/>
       <Footer/>
     </div>
   )

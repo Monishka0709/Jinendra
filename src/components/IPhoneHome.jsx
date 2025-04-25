@@ -3,7 +3,6 @@ import '../App.css'
 import { AnimatePresence } from 'framer-motion';
 import { CompareArrows as CompareIcon, FavoriteBorder as FavoriteIcon, KeyboardArrowDown, KeyboardArrowUp, ShoppingCart as ShoppingCartIcon, Visibility as VisibilityIcon } from '@mui/icons-material';
 import Modal from './Modal';
-// import iphoneData from '../constants/iphoneData'
 import products from '../assets/products.json'
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
@@ -12,8 +11,8 @@ import LoginModal from './LoginModal';
 
 const IPhoneHome = () => {
   const { cartItems } = useCart();
-  console.log(cartItems.length)
-  console.log(cartItems)
+  // console.log(cartItems.length)
+  // console.log(cartItems)
   const ITEMS_PER_LOAD = 15;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
   const [selectedItem, setSelectedItem] = useState(null); // store selected item
@@ -27,9 +26,7 @@ const IPhoneHome = () => {
     setVisibleCount(prev => Math.min(prev + ITEMS_PER_LOAD, iphoneData.length));
   };
 
-  const handleAddToCartHover = () =>{
-    console.log('hi')
-  }
+  
 
   const { user } = useAuth();
   const { addToCart } = useCart();
@@ -46,7 +43,7 @@ const IPhoneHome = () => {
   };
   
     const totalPrice = cartItems.reduce((total, item) => {
-      return total + parseFloat(item.price.replace(/[₹,]/g, ""));
+      return total + parseFloat(item.new_price.replace(/[₹,]/g, ""));
     }, 0);
   
 
@@ -101,13 +98,13 @@ const IPhoneHome = () => {
                 </span>
               </p>
               <div className='itemComponent-details-btn' >
-                <button className='home-addToCart-btn' onClick={() => handleAddToCart(item)} onMouseOver={handleAddToCartHover}><ShoppingCartIcon /> Add To Cart </button>
+                <button className='home-addToCart-btn' onClick={() => handleAddToCart(item)} ><ShoppingCartIcon /> Add To Cart </button>
                 <div className='effect-div'></div>
                 <button><FavoriteIcon /></button>
                 <button><CompareIcon /></button>
               </div>
               <div className='itemComponent-details-small-btn' >
-                <button className='home-addToCart-btn' onClick={() => handleAddToCart(item)} onMouseOver={handleAddToCartHover}><ShoppingCartIcon /> </button>
+                <button className='home-addToCart-btn' onClick={() => handleAddToCart(item)} ><ShoppingCartIcon /> </button>
                 <div className='effect-div'></div>
                 <button><FavoriteIcon  /></button>
                 <button><CompareIcon /></button>
@@ -180,21 +177,52 @@ const IPhoneHome = () => {
 
       }}>
         <div style={{
-          height: '6rem',
-          display: showCartItems ? 'flex' : 'none',
-          cursor: 'pointer',
-          fontSize:'0.85rem', 
-          color:'darkorange',
-          alignItems: cartItems.length>0? 'unset':'center' 
-        }}>
-          {
-            cartItems.length>0?
-            cartItems.map((item) => <img src={item.img} />) :
-            'You have no items in your shopping cart.'
-
+  height: '6rem',
+  display: showCartItems ? 'flex' : 'none',
+  cursor: 'pointer',
+  fontSize: '0.85rem',
+  color: 'darkorange',
+  alignItems: cartItems.length > 0 ? 'unset' : 'center',
+  gap: '1rem',
+  padding: '0.5rem'
+}}>
+  {
+    cartItems.length > 0 ? (
+      Object.entries(
+        cartItems.reduce((acc, item) => {
+          if (acc[item.id]) {
+            acc[item.id].quantity += 1;
+          } else {
+            acc[item.id] = { ...item, quantity: 1 };
           }
+          return acc;
+        }, {})
+      ).map(([id, item]) => (
+        <div key={id} style={{ position: 'relative' }}>
+          <img src={item.img1} style={{ width: '4rem', height: '4rem' }} />
+          <span style={{
+            position: 'absolute',
+            top: '-0.5rem',
+            right: '-0.5rem',
+            background: 'red',
+            color: 'white',
+            borderRadius: '50%',
+            width: '1.2rem',
+            height: '1.2rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '0.7rem'
+          }}>
+            {item.quantity}
+          </span>
         </div>
-
+      ))
+    ) : (
+      'You have no items in your shopping cart.'
+    )
+  }
+</div>
         <div style={{display:'flex'}}>
           <div style={{ width: '15rem', borderRight: '1px solid #ccc', padding: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-start', fontWeight:'600' }}>Cart Summary</div>
@@ -210,10 +238,7 @@ const IPhoneHome = () => {
       <AnimatePresence>
         {selectedItem && (
           <Modal
-            name={selectedItem.name}
-            img={selectedItem.img}
-            price={selectedItem.price}
-            originalPrice={selectedItem.originalPrice}
+            id={selectedItem.id}
             onClose={() => setSelectedItem(null)}
           />
         )}

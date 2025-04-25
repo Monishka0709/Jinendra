@@ -6,19 +6,26 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (item) => {
-    if (!item) {
-    //   console.error("Attempted to add an undefined item to the cart.");
-      return;
-    }
-  
-    setCartItems((prev) => {
-      const updatedCart = [...prev, item];
-      console.log("Updated Cart:", updatedCart); // Now the first item won't be undefined
+// console.log(cartItems)
+const addToCart = (item, quantity = 1) => {
+  if (!item || quantity <= 0) return;
+
+  setCartItems((prev) => {
+    const existingItemIndex = prev.findIndex((cartItem) => cartItem.id === item.id);
+
+    if (existingItemIndex !== -1) {
+      const updatedCart = [...prev];
+      console.log(updatedCart)
+      updatedCart[existingItemIndex].quantity += quantity;
+      console.log(updatedCart)
       return updatedCart;
-    });
-  };
-  
+    } 
+    else {
+      return [...prev, { ...item, quantity }];
+    }
+  });
+};
+
   
 
   return (

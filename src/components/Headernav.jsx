@@ -1,18 +1,22 @@
 import React from "react";
 import Icon from "../assets/icons/mobile.png";
+import Categories from "../assets/category.json";
 
-const categories = [
-  { label: "MOBILE & TABLET", icon: Icon },
-  { label: "ACCESSORIES", icon: Icon },
-  { label: "SMART WEARABLES", icon: Icon },
-  { label: "SMART TV & AUDIO", icon: Icon },
-  { label: "LAPTOPS", icon: Icon },
-  { label: "POOJARA PRIME", icon: Icon },
-  { label: "BRANDS", icon: Icon },
-  { label: "MORE", icon: Icon },
-];
+// const categories = [
+//   { label: "MOBILE & TABLET", icon: Icon },
+//   { label: "ACCESSORIES", icon: Icon },
+//   { label: "SMART WEARABLES", icon: Icon },
+//   { label: "SMART TV & AUDIO", icon: Icon },
+//   { label: "LAPTOPS", icon: Icon },
+//   { label: "POOJARA PRIME", icon: Icon },
+//   { label: "BRANDS", icon: Icon },
+//   { label: "MORE", icon: Icon },
+// ];
+const categories = Categories[2].data;
+  console.log(categories)
 
 const Headernav = () => {
+  
   const containerStyle = {
     display: "flex",
     justifyContent: "space-around",
@@ -44,10 +48,10 @@ const Headernav = () => {
       style={containerStyle}
       className="top-category-icons"
     >
-      {categories.map((cat, idx) => (
-        <div key={idx} style={categoryStyle}>
-          <img src={cat.icon} alt={cat.label} style={iconStyle} />
-          {cat.label}
+      {categories.map((cat) => (
+        <div key={cat.id} style={categoryStyle}>
+          <img src={Icon} alt={cat.name} style={iconStyle} />
+          {cat.name}
         </div>
       ))}
     </div>

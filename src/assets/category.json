@@ -1,0 +1,74 @@
+[
+    {
+        "type": "header",
+        "version": "5.2.1",
+        "comment": "Export to JSON plugin for PHPMyAdmin"
+    },
+    {
+        "type": "database",
+        "name": "u301758932_jinendra_onlin"
+    },
+    {
+        "type": "table",
+        "name": "category",
+        "database": "u301758932_jinendra_onlin",
+        "data": [
+            {
+                "id": "4",
+                "name": "MOBILE & TABLET",
+                "descr": "",
+                "img": "category\/SP_1.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "5",
+                "name": "Accessories",
+                "descr": "",
+                "img": "category\/SP_2.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "6",
+                "name": "SMART WEARABLES",
+                "descr": "",
+                "img": "category\/SP_3.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "7",
+                "name": "SMART TV & AUDIO",
+                "descr": "",
+                "img": "category\/SP_4.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "8",
+                "name": "LAPTOPS",
+                "descr": "",
+                "img": "category\/SP_5.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "9",
+                "name": "BRANDS",
+                "descr": "",
+                "img": "category\/SP_7.png",
+                "status": "active",
+                "tag": "Top Rated"
+            },
+            {
+                "id": "10",
+                "name": "Jinendra Prime",
+                "descr": "",
+                "img": "category\/_jj.png",
+                "status": "active",
+                "tag": "Top Rated"
+            }
+        ]
+    }
+]
