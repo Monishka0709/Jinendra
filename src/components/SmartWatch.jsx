@@ -119,11 +119,11 @@ const SmartWatch = () => {
           <button
             onClick={handleLoadMore}
             style={{
-              border: '1px solid orange',
+              border: '1px solid black',
               padding: '10px 20px',
               margin: '20px',
               backgroundColor: 'white',
-              color: 'orange',
+              color: 'black',
               cursor: 'pointer',
               borderRadius: '20px'
             }}
@@ -134,107 +134,7 @@ const SmartWatch = () => {
       )}
 
 
-      <div 
-      className='cartShow'
-      style={{
-        position: 'fixed',
-        bottom: showCartItems ? '7rem' : '0',
-        left: '0',
-        padding: '7px 10px',
-        background: 'orange',
-        cursor: 'pointer',
-        zIndex: '500'
-
-      }}
-
-        onClick={handleCartDisplay}
-      >
-        {
-          cartItems.length == 0 ? 'Your Cart is Empty' : `${cartItems.length} items in your cart `
-        }
-        {
-          showCartItems == false?  <KeyboardArrowUp />:<KeyboardArrowDown />
-        }
-        
-
-
-
-      </div>
-
-
-      <div style={{
-        position: 'fixed',
-        bottom: '0',
-        left: '0',
-        padding: '7px 10px',
-        height: '7rem',
-        width: '100vw',
-        display: showCartItems ? 'flex' : 'none',
-        background: '#eee',
-        cursor: 'pointer',
-        zIndex:'600',
-        justifyContent: 'space-between'
-
-      }}>
-        <div style={{
-  height: '6rem',
-  display: showCartItems ? 'flex' : 'none',
-  cursor: 'pointer',
-  fontSize: '0.85rem',
-  color: 'darkorange',
-  alignItems: cartItems.length > 0 ? 'unset' : 'center',
-  gap: '1rem',
-  padding: '0.5rem'
-}}>
-  {
-    cartItems.length > 0 ? (
-      Object.entries(
-        cartItems.reduce((acc, item) => {
-          if (acc[item.id]) {
-            acc[item.id].quantity += 1;
-          } else {
-            acc[item.id] = { ...item, quantity: 1 };
-          }
-          return acc;
-        }, {})
-      ).map(([id, item]) => (
-        <div key={id} style={{ position: 'relative' }}>
-          <img src={item.img1} style={{ width: '4rem', height: '4rem' }} />
-          <span style={{
-            position: 'absolute',
-            top: '-0.5rem',
-            right: '-0.5rem',
-            background: 'red',
-            color: 'white',
-            borderRadius: '50%',
-            width: '1.2rem',
-            height: '1.2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '0.7rem'
-          }}>
-            {item.quantity}
-          </span>
-        </div>
-      ))
-    ) : (
-      'You have no items in your shopping cart.'
-    )
-  }
-</div>
-        <div style={{display:'flex'}}>
-          <div style={{ width: '15rem', borderRight: '1px solid #ccc', padding: '20px' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-start', fontWeight:'600' }}>Cart Summary</div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><div>Total Quantity</div><div>{cartItems.length}</div></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}><div>Cart Subtotal</div><div>₹{cartItems.length> 0?             totalPrice.toLocaleString("en-IN") : 0 }</div></div>
-          </div>
-          <div style={{ width: '12rem', borderRight: '1px solid #ccc', padding: '20px' }}>
-            <button style={{ width: '10rem', fontWeight:'600', fontSize:'0.8rem', background: 'orange', padding: ' 10px 25px', borderRadius:'50px', color:'white' }}>PROCEED TO CHECKOUT</button>
-          </div>
-        </div>
-      </div>
-
+      
       <AnimatePresence>
         {selectedItem && (
           <Modal

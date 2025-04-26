@@ -119,11 +119,11 @@ const NewArrivals = () => {
           <button
             onClick={handleLoadMore}
             style={{
-              border: '1px solid orange',
+              border: '1px solid black',
               padding: '10px 20px',
               margin: '20px',
               backgroundColor: 'white',
-              color: 'orange',
+              color: 'black',
               cursor: 'pointer',
               borderRadius: '20px'
             }}
@@ -134,33 +134,7 @@ const NewArrivals = () => {
       )}
 
 
-      <div 
-      className='cartShow'
-      style={{
-        position: 'fixed',
-        bottom: showCartItems ? '7rem' : '0',
-        left: '0',
-        padding: '7px 10px',
-        background: 'orange',
-        cursor: 'pointer',
-        zIndex: '500'
-
-      }}
-
-        onClick={handleCartDisplay}
-      >
-        {
-          cartItems.length == 0 ? 'Your Cart is Empty' : `${cartItems.length} items in your cart `
-        }
-        {
-          showCartItems == false?  <KeyboardArrowUp />:<KeyboardArrowDown />
-        }
-        
-
-
-
-      </div>
-
+      
 
 
 

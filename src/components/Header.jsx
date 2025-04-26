@@ -34,7 +34,7 @@ const Header = () => {
     setExpandState((prev) => ({ ...prev, [key]: !prev[key] }));
   };
   const totalPrice = cartItems.reduce((total, item) => {
-    return total + parseFloat(item.new_price.replace(/[₹,]/g, ""));
+    return total + parseFloat(item.new_price.replace(/[₹,]/g, "")*item.quantity);
   }, 0);
   
   const toggleDrawer = (open) => (event) => {
@@ -46,7 +46,7 @@ const Header = () => {
 
   
   const headerStyle = {
-    backgroundColor: "#f97316",
+    backgroundColor: "black",
     color: "white",
     display: "flex",
     alignItems: "center",
@@ -164,7 +164,7 @@ const Header = () => {
           {/* Top Section */}
           <div>
             <div style={{float:'right',cursor:'pointer'}}><Close onClick={toggleNavDrawer(false)}/></div>
-            <h2 style={{ color: 'darkorange' }}>YOUR CART</h2>
+            <h2 style={{ color: 'darkblack' }}>YOUR CART</h2>
             <p>{cartItems.length} {cartItems.length === 1 ? 'Item' : 'Items'}</p>
             
             {cartItems.map((item, index) => (
@@ -172,7 +172,7 @@ const Header = () => {
                 <img src={item.img1} alt={item.name} style={{ width: 60, height: 60, objectFit: 'cover', marginRight: '1rem' }} />
                 <div>
                   <div style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>{item.name}</div>
-                  <div style={{ color: 'orange', fontWeight: 'bold' }}>₹{item.new_price}</div>
+                  <div style={{ color: 'black', fontWeight: 'bold' }}>₹{item.new_price}</div>
                   <div style={{ fontSize: '0.8rem' }}>QTY: {item.quantity}</div>
                 </div>
               </div>
@@ -183,7 +183,7 @@ const Header = () => {
           <div style={{ marginTop: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: '1rem' }}>
               <span>CART SUBTOTAL:</span>
-              <span style={{ color: 'orange' }}>
+              <span style={{ color: 'black' }}>
                 ₹{cartItems.reduce((acc, item) => acc + (item.new_price), 0).toLocaleString()}
               </span>
             </div>
@@ -191,8 +191,8 @@ const Header = () => {
             <button style={{
               width: '100%',
               padding: '0.7rem',
-              border: '1px solid orange',
-              color: 'orange',
+              border: '1px solid black',
+              color: 'black',
               borderRadius: '20px',
               background: 'transparent',
               fontWeight: 'bold',
@@ -205,7 +205,7 @@ const Header = () => {
             <button style={{
               width: '100%',
               padding: '0.7rem',
-              background: 'orange',
+              background: 'black',
               color: 'white',
               border: 'none',
               borderRadius: '20px',

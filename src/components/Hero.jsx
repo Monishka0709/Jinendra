@@ -120,7 +120,7 @@ export default function SliderCarousel() {
         }
 
         .carousel-btn {
-          background-color: orange;
+          background-color: black;
           color: #fff;
           border-radius: 5px;
           height: 3.5rem;

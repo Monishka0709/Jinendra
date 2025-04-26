@@ -22,7 +22,7 @@ const Headernav = () => {
     justifyContent: "space-around",
     padding: "12px",
     backgroundColor: "white",
-    borderTop: "2px solid #f97316",
+    borderTop: "2px solid #999",
     overflowX: "auto",
   };
 

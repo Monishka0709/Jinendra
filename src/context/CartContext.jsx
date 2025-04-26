@@ -6,7 +6,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-// console.log(cartItems)
+console.log(cartItems)
 const addToCart = (item, quantity = 1) => {
   if (!item || quantity <= 0) return;
 
@@ -14,11 +14,12 @@ const addToCart = (item, quantity = 1) => {
     const existingItemIndex = prev.findIndex((cartItem) => cartItem.id === item.id);
 
     if (existingItemIndex !== -1) {
-      const updatedCart = [...prev];
-      console.log(updatedCart)
-      updatedCart[existingItemIndex].quantity += quantity;
-      console.log(updatedCart)
-      return updatedCart;
+      if(quantity==1){
+        return [...prev.slice(0, existingItemIndex), { ...prev[existingItemIndex], quantity: prev[existingItemIndex].quantity + 1 }, ...prev.slice(existingItemIndex + 1)];
+      }
+      else{
+        return [...prev.slice(0, existingItemIndex), { ...prev[existingItemIndex], quantity: prev[existingItemIndex].quantity + quantity }, ...prev.slice(existingItemIndex + 1)];
+      }
     } 
     else {
       return [...prev, { ...item, quantity }];

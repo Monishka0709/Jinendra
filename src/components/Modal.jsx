@@ -12,7 +12,7 @@ import { Add, Close, Compare, Face, Facebook, Favorite, Google, LinkedIn, Pinter
 
 const Modal = ({ id, onClose }) => {
   const dataItem = products[2].data.find((item) => id == item.id)
-  console.log(dataItem.name)
+  
 
     const [quantity, setQuantity] = useState(1);
     const [primaryImage, setPrimaryImage] = useState(dataItem.img1);
@@ -36,13 +36,13 @@ const Modal = ({ id, onClose }) => {
     const { user } = useAuth();
  const { addToCart } = useCart();
  const [showLogin, setShowLogin] = useState(false);
- const handleAddToCart = (item) => {
+ const handleAddToCart = (item, quantity) => {
   if (!user) {
     setShowLogin(true);
-    addToCart(item)
+    addToCart(item, quantity)
   }
   else {
-    addToCart(item);
+    addToCart(item, quantity);
   }
 };
   const modalVariants = {
@@ -130,7 +130,7 @@ const Modal = ({ id, onClose }) => {
                 <p className="text-blue-700 font-semibold " style={{fontFamily:'system-ui', fontSize:'13px', display:'inline-block', width:'100%', textAlign:'left'}}><a href='#' style={{borderBottom:'1px solid blue'}}>BE THE FIRST TO REVIEW THIS PRODUCT</a></p>
                 </div>
                 <div style={{ display:'flex', justifyContent:'flex-start', alignItems:'flex-end', gap:'1.52rem'}}>
-                  <p style={{color:'orange', fontFamily:'system-ui', fontSize:'2.2rem', fontWeight:'bold'}}>₹{dataItem.new_price}</p>
+                  <p style={{color:'black', fontFamily:'system-ui', fontSize:'2.2rem', fontWeight:'bold'}}>₹{dataItem.new_price}</p>
                   <del style={{color:'#c0c0c0', fontFamily:'system-ui', fontSize:'1.5rem', fontWeight:'bold'}}>₹{dataItem.old_price}</del>
                 </div>
 
@@ -147,8 +147,8 @@ const Modal = ({ id, onClose }) => {
               
                 <Tooltip title="Add to Cart">
                   <button
-                    onClick={() => handleAddToCart(dataItem)}
-                    style={{ background: 'orange', color: 'white', position: 'static', width: '100%', borderRadius: '2rem', opacity: '1', padding:'15px', fontSize:'20px', fontWeight:'bold' }}
+                    onClick={() => handleAddToCart(dataItem, quantity)}
+                    style={{ background: 'black', color: 'white', position: 'static', width: '100%', borderRadius: '2rem', opacity: '1', padding:'15px', fontSize:'20px', fontWeight:'bold' }}
                   >
                     ADD TO CART
                   </button>
