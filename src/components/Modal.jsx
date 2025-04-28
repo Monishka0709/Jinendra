@@ -6,6 +6,7 @@ import products from '../assets/products.json'
 import { useCart } from '../context/CartContext';
 import {useAuth } from '../context/AuthContext';
 import LoginModal from './LoginModal';
+import Magnifier from './Magnifier';
 
 import iphoneData from '../constants/iphoneData'
 import { Add, Close, Compare, Face, Facebook, Favorite, Google, LinkedIn, Pinterest, Remove, RemoveShoppingCartSharp, WhatsApp } from '@mui/icons-material';
@@ -76,8 +77,6 @@ const Modal = ({ id, onClose }) => {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // justifyContent: "center",
-    height: "fit-content",
     height: "80%",
     overflowY: "scroll",
 
@@ -98,14 +97,16 @@ const Modal = ({ id, onClose }) => {
         onClick={(e) => e.stopPropagation()}
         style={modalStyle}// Prevent modal close on inside click
       >
+        
          <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
         <div style={{ width: "100%", display: 'flex', justifyContent: 'flex-end' }}>
           <button style={{ position: 'static', backgroundColor: "transparent", border: "none", fontSize: "1.5rem", color: "black" }} onClick={onClose}><Close /></button>
         </div>
-        <div style={{ width: "100%", display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: "100%", display: 'flex', height:'38rem', justifyContent: 'center' }}>
         <div className='modal-image-container'>
       <div className='modal-primary-image'>
-        <img src={primaryImage} alt="Primary Product" />
+        {/* <img src={primaryImage} alt="Primary Product" /> */}
+        <Magnifier src={primaryImage} alt="Primary Product" />
       </div>
       <div className='modal-secondary-image'>
         {secondaryImages.map((img, index) => (

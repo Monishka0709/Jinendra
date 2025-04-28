@@ -12,12 +12,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { useCart } from "../context/CartContext";
 import { IconButton } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
   const { cartItems } = useCart();
-   const [open, setOpen] = useState(false);
   
     const toggleNavDrawer = (state) => () => {
       setOpen(state);
@@ -29,6 +32,9 @@ const Header = () => {
     wearables: false,
     tvAudio: false
   });
+  const handleCheckout = () => {
+    navigate('/checkout');
+  }
   
   const toggleExpand = (key) => {
     setExpandState((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -124,7 +130,7 @@ const Header = () => {
       <nav>
         <div className='navbar-icon-container'>
         <IconButton style={{color:'white'}}><HomeFilled/></IconButton>
-        <IconButton style={{color:'white'}}><WhatsApp/></IconButton>
+        <IconButton style={{color:'white'}}><WhatsApp id="whatsapp-icon"/></IconButton>
         <div style={{ position: 'relative', display: 'inline-block' }}>
   <IconButton onClick={toggleNavDrawer(true)} style={{ color: 'white' }}>
     <ShoppingCartOutlined />
@@ -184,7 +190,7 @@ const Header = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', marginBottom: '1rem' }}>
               <span>CART SUBTOTAL:</span>
               <span style={{ color: 'black' }}>
-                ₹{cartItems.reduce((acc, item) => acc + (item.new_price), 0).toLocaleString()}
+                ₹{totalPrice.toLocaleString()}
               </span>
             </div>
 
@@ -211,7 +217,8 @@ const Header = () => {
               borderRadius: '20px',
               fontWeight: 'bold',
               cursor: 'pointer'
-            }}>
+            }}
+            onClick={handleCheckout}>
               GO TO CHECKOUT
             </button>
           </div>

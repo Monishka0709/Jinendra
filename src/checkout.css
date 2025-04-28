@@ -1,0 +1,106 @@
+.checkout-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .form-section,
+  .methods-section,
+  .summary-section {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    flex: 1;
+    min-width: 300px;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    color: black;
+    margin-bottom: 15px;
+  }
+  
+  .shipping-form label,
+  .payment-options label,
+  .discount-code label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  .shipping-form input,
+  .shipping-form select,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .payment-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .reward {
+    background: #fff8e1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px dashed black;
+  }
+  
+  .reward span {
+    color:black;
+    font-weight: bold;
+  }
+  
+  .order-details {
+    margin-bottom: 15px;
+  }
+  
+  .order-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  
+  .order-row.total {
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+  
+  .cart-items p {
+    margin: 5px 0;
+  }
+  
+  textarea {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .place-order {
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .place-order:hover {
+    background: black;
+ }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .checkout-container {
+      flex-direction: column;
+    }
+  }
+  

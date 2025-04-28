@@ -21,7 +21,7 @@ const Footer = () => {
             />
             <button
               style={{
-                backgroundColor: '#ff5a00',
+                backgroundColor: 'black',
                 color: '#fff',
                 border: 'none',
                 padding: '10px 20px',

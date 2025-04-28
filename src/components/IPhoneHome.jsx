@@ -7,6 +7,7 @@ import products from '../assets/products.json';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import LoginModal from './LoginModal';
+import { useNavigate } from 'react-router-dom';
 
 const IPhoneHome = () => {
   const { cartItems, addToCart } = useCart();
@@ -19,18 +20,22 @@ const IPhoneHome = () => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const iphoneData = products[2].data;
 
+  const navigate = useNavigate();
   const totalPrice = cartItems.reduce((total, item) => {
     return total + parseFloat(item.new_price.replace(/[₹,]/g, "")) * item.quantity;
   }, 0);
+  const handleCheckout = () => {
+    navigate('/checkout');
+  };
 
   useEffect(() => {
     setTotalQuantity(cartItems.reduce((sum, item) => sum + item.quantity, 0));
   }, [cartItems]);
 
   const handleAddToCart = (item, e) => {
-    if (!user) {
-      setShowLogin(true);
-    }
+    // if (!user) {
+    //   setShowLogin(true);
+    // }
     addToCart(item);
     startFlyToCart(e, item.img1);
   };
@@ -81,47 +86,62 @@ const IPhoneHome = () => {
     <div style={{ padding: '20px', backgroundColor: '#f5f2e8', fontFamily: 'Arial, sans-serif' }}>
       <h2 style={{ marginBottom: '20px', fontSize: '24px' }}>iPhone @ Best Deal + Cashback</h2>
       <div className="itemComponent-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'flex-start' }}>
-        <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
-        {iphoneData.slice(0, visibleCount).map((item, index) => (
-          <div key={index} className="itemComponent" style={{ background: 'white', border: '1px solid #e0e0e0', padding: '15px', width: 'calc(20% - 20px)', minWidth: '180px', display: 'flex', flexDirection: 'column', height: '21rem', textAlign: 'center', borderRadius: '5px', boxSizing: 'border-box', position: 'relative' }}>
-            <div className="itemComponent-img-container">
-              <img src={item.img1} alt={item.name} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
-              <button onClick={() => setSelectedItem(item)}><VisibilityIcon /></button>
-            </div>
-            <div className="itemComponent-details">
-              <p style={{ fontSize: '14px', marginBottom: '10px' }}>{item.name}</p>
-              <p>
-                <span>₹{item.new_price}</span>
-                <span style={{ textDecoration: 'line-through', color: '#888', marginLeft: '8px', fontWeight: 'normal' }}>₹{item.old_price}</span>
-              </p>
-              <div className="itemComponent-details-btn">
-                <button className="home-addToCart-btn" onClick={(e) => handleAddToCart(item, e)}><ShoppingCartIcon /> Add To Cart</button>
-                <button><FavoriteIcon /></button>
-                <button><CompareIcon /></button>
-              </div>
-              <div className='itemComponent-details-small-btn' >
-              <button
-  className='home-addToCart-btn'
-  onClick={(e) => {
-    e.stopPropagation();
-    if (!user) {
-      setShowLogin(true);
-      return;
-    }
-    addToCart(item);
-    startFlyToCartSmall(e, item.img1);
-  }}
->
-  <ShoppingCartOutlined />
-</button>
-                <div className='effect-div'></div>
-                <button><FavoriteIcon /></button>
-                <button><CompareIcon /></button>
-              </div>
-            </div>
-          </div>
-        ))}
+  <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
+  {iphoneData.slice(0, visibleCount).map((item, index) => (
+    <div 
+      key={index} 
+      className="itemComponent" 
+      style={{
+        background: 'white',
+        border: '1px solid #e0e0e0',
+        padding: '15px',
+        width: 'calc(20% - 20px)',
+        minWidth: '180px',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '21rem',
+        textAlign: 'center',
+        borderRadius: '5px',
+        boxSizing: 'border-box',
+        position: 'relative',
+        animationDelay: `${index * 0.2}s`  // Stagger delay based on index
+      }}
+    >
+      <div className="itemComponent-img-container">
+        <img src={item.img1} alt={item.name} style={{ width: '100%', height: 'auto', marginBottom: '10px' }} />
+        <button onClick={() => setSelectedItem(item)}><VisibilityIcon /></button>
       </div>
+      <div className="itemComponent-details">
+        <p style={{ fontSize: '14px', marginBottom: '10px' }}>{item.name}</p>
+        <p>
+          <span>₹{item.new_price}</span>
+          <span style={{ textDecoration: 'line-through', color: '#888', marginLeft: '8px', fontWeight: 'normal' }}>₹{item.old_price}</span>
+        </p>
+        <div className="itemComponent-details-btn">
+          <button className="home-addToCart-btn" onClick={(e) => handleAddToCart(item, e)}><ShoppingCartIcon /> Add To Cart</button>
+          <button><FavoriteIcon /></button>
+          <button><CompareIcon /></button>
+        </div>
+        <div className='itemComponent-details-small-btn'>
+          <button
+            className='home-addToCart-btn'
+            onClick={(e) => {
+              e.stopPropagation();
+              addToCart(item);
+              startFlyToCartSmall(e, item.img1);
+            }}
+          >
+            <ShoppingCartOutlined />
+          </button>
+          <div className='effect-div'></div>
+          <button><FavoriteIcon /></button>
+          <button><CompareIcon /></button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
 
       {visibleCount < iphoneData.length && (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -154,7 +174,7 @@ const IPhoneHome = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between' }}><div>Cart Subtotal</div><div>₹{cartItems.length > 0 ? totalPrice.toLocaleString("en-IN") : 0}</div></div>
           </div>
           <div style={{ width: '12rem', padding: '20px' }}>
-            <button style={{ width: '10rem', fontWeight: '600', fontSize: '0.8rem', background: 'black', padding: '10px 25px', borderRadius: '50px', color: 'white' }}>PROCEED TO CHECKOUT</button>
+            <button onClick={handleCheckout} style={{ width: '10rem', fontWeight: '600', fontSize: '0.8rem', background: 'black', padding: '10px 25px', borderRadius: '50px', color: 'white' }}>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>
